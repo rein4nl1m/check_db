@@ -4,16 +4,13 @@ import 'package:check_compras/widgets/customListTile.dart';
 import 'package:flutter/material.dart';
 
 class ItensScreen extends StatefulWidget {
-  final DBProvider db;
-
-  const ItensScreen({Key key, this.db}) : super(key: key);
-
   @override
   _ItensScreenState createState() => _ItensScreenState();
 }
 
 class _ItensScreenState extends State<ItensScreen> {
   final _formKey = GlobalKey<FormState>();
+  final DBProvider db = DBProvider.instance;
   TextEditingController _itemController = TextEditingController();
   TextEditingController _quantController = TextEditingController();
 
@@ -32,7 +29,7 @@ class _ItensScreenState extends State<ItensScreen> {
           title: Text("Itens Padrão"),
         ),
         body: FutureBuilder<List<ItemPadrao>>(
-          future: widget.db.queryAllRows(),
+          future: db.queryAllRows(),
           builder:
               (BuildContext context, AsyncSnapshot<List<ItemPadrao>> snapshot) {
             if (snapshot.hasData) {
@@ -40,7 +37,7 @@ class _ItensScreenState extends State<ItensScreen> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   ItemPadrao itemPadrao = snapshot.data[index];
-                  return CustomListTile(index: index, item: itemPadrao, db: widget.db);
+                  return CustomListTile(index: index, item: itemPadrao, db: db);
                 },
               );
             } else {
@@ -133,7 +130,7 @@ class _ItensScreenState extends State<ItensScreen> {
                       //item.id = (id != null) ? id++ : 1;
                       item.nome = _itemController.text;
                       item.quantidade = int.parse(_quantController.text);
-                      widget.db.insertItem(item);
+                      db.insertItem(item);
                       Navigator.pop(context);
                     }
                   },

@@ -1,4 +1,5 @@
 import 'package:check_compras/screens/homeScreen.dart';
+import 'package:check_compras/screens/itensScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -13,6 +14,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
+      routes: {
+        '/itensScreen': (context) => ItensScreen()
+      }
     );
   }
 }

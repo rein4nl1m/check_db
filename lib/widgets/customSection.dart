@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomSection extends StatelessWidget {
   final String title;
   final IconData iconData;
-  final PageRoute route;
+  final String route;
 
   const CustomSection({Key key, this.title, this.iconData, this.route})
       : super(key: key);
@@ -12,7 +12,7 @@ class CustomSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(route);
+        Navigator.pushNamed(context, route);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

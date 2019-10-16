@@ -1,18 +1,15 @@
 import 'package:check_compras/db/db_provider.dart';
-import 'package:check_compras/screens/itensScreen.dart';
 import 'package:check_compras/widgets/customSection.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-
   final DBProvider dbProvider = DBProvider.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Check Compras"),
-      ),
+          title: Text("Check Compras!"), centerTitle: true, elevation: 10),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -32,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                 CustomSection(
                   iconData: Icons.add_box,
                   title: "Itens Padrão",
-                  route: MaterialPageRoute(builder: (context) => ItensScreen(db: dbProvider)),
+                  route: "/itensScreen",
                 ),
                 CustomSection(
                   iconData: Icons.format_list_bulleted,
