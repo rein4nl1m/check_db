@@ -5,7 +5,8 @@ class CustomSection extends StatelessWidget {
   final IconData iconData;
   final String route;
 
-  const CustomSection({Key key, this.title, this.iconData, this.route})
+  const CustomSection(
+      {Key key, this.title, this.iconData, this.route})
       : super(key: key);
 
   @override
@@ -19,23 +20,24 @@ class CustomSection extends StatelessWidget {
         width: 130,
         height: 130,
         decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(14)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.blue)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: Icon(iconData, size: 70, color: Colors.white),
+              child: Icon(iconData, size: 70, color: Colors.blue),
             ),
             Text(
               title,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: Colors.white,
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Colors.blue,
+                  fontFamily: DefaultTextStyle.of(context).style.fontFamily),
               textAlign: TextAlign.center,
             )
           ],

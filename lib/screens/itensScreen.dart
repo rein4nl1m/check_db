@@ -1,5 +1,9 @@
 import 'package:check_compras/db/db_provider.dart';
 import 'package:check_compras/models/itemPadraoModel.dart';
+import 'package:check_compras/widgets/customAppBar.dart';
+import 'package:check_compras/widgets/customBodyBack.dart';
+import 'package:check_compras/widgets/customFloatButton.dart';
+//import 'package:check_compras/widgets/customFloatButton.dart';
 import 'package:check_compras/widgets/customListTile.dart';
 import 'package:flutter/material.dart';
 
@@ -13,64 +17,53 @@ class _ItensScreenState extends State<ItensScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Itens Padrão"), centerTitle: true),
-      body: Stack(
-        children: <Widget>[
-          FutureBuilder<List<ItemPadrao>>(
-            future: db.queryAllRows(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<ItemPadrao>> snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    ItemPadrao itemPadrao = snapshot.data[index];
-                    return CustomListTile(
-                        index: index, item: itemPadrao, db: db);
-                  },
-                );
-              } else {
-                return Center(
-                    child: Text("Insira um novo item!",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20)));
-              }
-            },
+    return Stack(
+      children: <Widget>[
+        CustomBodyBack(),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: Text("Itens Padrão",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold)),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
           ),
-          Positioned(
-            bottom: 7.5,
-            right: 7.5,
-            child: Hero(
-              tag: "novoItem",
-              child: Material(
-                elevation: 10,
-                borderRadius: BorderRadius.circular(20),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, "/novoItemScreen");
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    width: 120,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Icon(Icons.add, color: Colors.white),
-                        Text("Novo Item", style: TextStyle(color: Colors.white))
-                      ],
+          body: Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    FutureBuilder<List<ItemPadrao>>(
+                      future: db.queryAllRows(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<ItemPadrao>> snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              ItemPadrao itemPadrao = snapshot.data[index];
+                              return CustomListTile(
+                                  index: index, item: itemPadrao, db: db);
+                            },
+                          );
+                        } else {
+                          return Center(
+                              child: Text("Insira um novo item!",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)));
+                        }
+                      },
                     ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+                  ])),
+        ),
+        CustomFloatButton(label: "Novo Item")
+      ],
     );
   }
 }
